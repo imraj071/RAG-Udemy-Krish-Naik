@@ -7,4 +7,5 @@ langchain-openai
 chromadb
 sentence-transformers
 pypdf
+pymupdf
 python-dotenv
