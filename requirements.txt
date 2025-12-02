@@ -12,3 +12,7 @@ python-dotenv
 python-docs
 docx2txt
 unstructured[docx]
+pandas
+openpyxl
+unstructured[pandas]
+msoffcrypto-tool

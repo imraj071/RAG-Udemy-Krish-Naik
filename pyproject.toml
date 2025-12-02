@@ -13,6 +13,8 @@ dependencies = [
     "langchain-community>=0.4.1",
     "langchain-groq>=1.1.0",
     "langchain-openai>=1.1.0",
+    "msoffcrypto-tool>=5.4.2",
+    "openpyxl>=3.1.5",
     "pandas>=2.3.3",
     "pymupdf>=1.26.6",
     "pypdf>=6.4.0",
@@ -20,5 +22,5 @@ dependencies = [
     "python-dotenv>=1.2.1",
     "sentence-transformers>=5.1.2",
     "tiktoken>=0.12.0",
-    "unstructured[docx]>=0.18.21",
+    "unstructured[docx,pandas]>=0.18.21",
 ]
