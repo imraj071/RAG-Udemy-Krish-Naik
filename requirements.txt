@@ -16,3 +16,4 @@ pandas
 openpyxl
 unstructured[pandas]
 msoffcrypto-tool
+jq
