@@ -1,5 +1,6 @@
 langchain
 langchain-groq
+langchain-chains
 faiss-cpu
 tiktoken
 langchain-community
