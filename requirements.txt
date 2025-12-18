@@ -1,7 +1,7 @@
 langchain
 langchain-core
 langchain-groq
-langchain-chains
+#langchain-chains
 faiss-cpu
 tiktoken
 langchain-community
@@ -23,3 +23,5 @@ matplotlib
 #Embedding
 langchain_huggingface
 sentence-transformers
+langchain_groq
+langchain_experimental
