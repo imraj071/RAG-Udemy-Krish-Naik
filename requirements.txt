@@ -25,3 +25,4 @@ langchain_huggingface
 sentence-transformers
 langchain_groq
 langchain_experimental
+wikipedia
