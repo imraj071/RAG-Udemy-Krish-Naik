@@ -1,0 +1,126 @@
+While writing large Python programs, creating classes whose main job is just to hold data is a common fixture, these classes had repetitive code: __init__, __repr__, comparisons, and so on. That’s when I came across dataclasses in Python, and they genuinely changed how I think about structuring data.
+
+Before dataclasses, a simple data-holding class looked like this:
+
+class Student:
+    def __init__(self, name, age, grade):
+        self.name = name
+        self.age = age
+        self.grade = grade
+
+    def __repr__(self):
+        return f"Student(name={self.name}, age={self.age}, grade={self.grade})"
+
+A lot of this code is boilerplate and is harder to maintain as fields increase. Dataclasses were introduced to reduce this repetition.
+
+A dataclass is a special type of class introduced in Python 3.7 that automatically generates common methods for classes that primarily store data.
+
+from dataclasses import dataclass
+
+@dataclass
+class Student:
+    name: str
+    age: int
+    grade: float
+	
+Python now automatically creates __init__ , __repr__ and __eq__.
+
+Key Features:
+
+1. Type Hints
+
+Dataclasses rely heavily on type annotations. Without type hints, the field isn’t treated properly as a dataclass field.
+
+2. Default Values
+
+@dataclass
+class User:
+    name: str
+    is_active: bool = True
+
+Fields with defaults must come after fields without defaults.
+
+3. Using field() for More Control
+
+from dataclasses import field
+
+@dataclass
+class Product:
+    name: str
+    price: float
+    tags: list[str] = field(default_factory=list)
+
+I learned that using default_factory avoids shared mutable defaults.
+
+4. Post-Initialization Logic
+
+@dataclass
+class Rectangle:
+    width: float
+    height: float
+
+    def __post_init__(self):
+        if self.width <= 0 or self.height <= 0:
+            raise ValueError("Dimensions must be positive")
+
+This helped me understand how validation can still be included.
+
+A key limitation of dataclasses is that it doesn't have built-in data validation, that's where pydantic comes into the picture.
+
+Just with dataclasses, python doesn’t enforce type hints at runtime. If I passed a string where an integer was expected, the program wouldn’t complain immediately. Pydantic solves this problem.
+
+Pydantic is a library used to define data models using Python type hints, while also validating input data, converting types automatically and producing clear error messages. It’s widely used in APIs and backend systems.
+
+from pydantic import BaseModel
+
+class User(BaseModel):
+    name: str
+    age: int
+
+user = User(name="Raj", age="25")
+print(user.age)
+
+Even though "25" is a string, Pydantic converts it to an integer.
+
+If incorrect data is passed:
+
+User(name="Raj", age="abc")
+
+Pydantic throws a detailed validation error. This is a big improvement compared to normal classes.
+
+Key Features:
+
+1. Automatic Type Conversion
+
+Pydantic tries to coerce values into the correct type when possible.
+
+2. Field Validation
+
+from pydantic import Field
+
+class Product(BaseModel):
+    name: str
+    price: float = Field(gt=0)
+	
+This ensures the price must be greater than zero.
+
+3. Custom Validators
+from pydantic import validator
+
+class User(BaseModel):
+    name: str
+
+    @validator("name")
+    def name_must_not_be_empty(cls, v):
+        if not v.strip():
+            raise ValueError("Name cannot be empty")
+        return v
+
+This gave me fine-grained control over input rules.
+
+
+Pydantic adds structure and reliability, especially when dealing with untrusted data. Learning it made me more aware of how fragile unchecked data can be in applications.
+
+
+
+
